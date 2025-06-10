@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import LogoHeader from '@/components/LogoHeader';
 
 export default function HomePage() {
