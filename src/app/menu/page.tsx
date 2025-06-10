@@ -95,9 +95,9 @@ function MenuContent() {
       </nav>
 
       <main className="pt-6">
-        <div className="p-6 max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Menü</h1>
+        <div className="p-4 md:p-6 max-w-6xl mx-auto">
+          <div className="text-center mb-6 md:mb-8">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-2">Menü</h1>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto rounded-full"></div>
           </div>
 
@@ -106,7 +106,7 @@ function MenuContent() {
               <div className="text-center">
                 <h2 className="text-xl md:text-2xl font-semibold text-gray-700 mb-6">Kategoriler</h2>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {categories.map((cat) => (
                   <div
                     key={cat.id}
@@ -118,13 +118,13 @@ function MenuContent() {
                         src={`https://qpukvgruzanjhjwgcmlp.supabase.co/storage/v1/object/public/category-images/${cat.image_url}`}
                         alt={getName(cat)}
                         width={300}
-                        height={300}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                        height={200}
+                        className="w-full h-40 sm:h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    <div className="p-4 text-center">
-                      <h3 className="font-bold text-lg text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                    <div className="p-3 md:p-4 text-center">
+                      <h3 className="font-bold text-base md:text-lg text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
                         {getName(cat)}
                       </h3>
                     </div>
@@ -134,28 +134,28 @@ function MenuContent() {
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mb-4">
                 <button
-                  className="flex items-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-xl shadow-md hover:shadow-lg transform transition-all duration-300 hover:scale-105 border border-gray-200"
+                  className="flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-white text-gray-700 rounded-xl shadow-md hover:shadow-lg transform transition-all duration-300 hover:scale-105 border border-gray-200"
                   onClick={() => setSelectedCategory(null)}
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
-                  Kategorilere Dön
+                  <span className="text-sm md:text-base">Kategoriler</span>
                 </button>
                 
-                <div className="text-center">
-                  <h2 className="text-xl md:text-2xl font-bold text-gray-800">
+                <div className="text-center flex-1 mx-4">
+                  <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
                     {categories.find(c => c.id === selectedCategory) ? 
                       getName(categories.find(c => c.id === selectedCategory)!) : 
                       'Kategori Bulunamadı'}
                   </h2>
                 </div>
-                <div className="w-32"></div>
+                <div className="w-16 md:w-32"></div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {filteredProducts.map((product) => (
                   <div 
                     key={product.id} 
@@ -167,13 +167,13 @@ function MenuContent() {
                         alt={getName(product)}
                         width={300}
                         height={200}
-                        className="w-full h-48 object-cover hover:scale-110 transition-transform duration-300"
+                        className="w-full h-40 sm:h-48 object-cover hover:scale-110 transition-transform duration-300"
                       />
                     </div>
-                    <div className="p-5">
-                      <h3 className="text-lg font-bold text-gray-800 mb-2">{getName(product)}</h3>
+                    <div className="p-4 md:p-5">
+                      <h3 className="text-base md:text-lg font-bold text-gray-800 mb-2">{getName(product)}</h3>
                       {getDescription(product) && (
-                        <p className="text-gray-600 text-sm mb-3 overflow-hidden" style={{ 
+                        <p className="text-gray-600 text-xs md:text-sm mb-3 overflow-hidden" style={{ 
                           display: '-webkit-box', 
                           WebkitLineClamp: 2, 
                           WebkitBoxOrient: 'vertical' as const 
@@ -182,8 +182,8 @@ function MenuContent() {
                         </p>
                       )}
                       <div className="flex items-center justify-between">
-                        <span className="text-2xl font-bold text-blue-600">₺{product.price}</span>
-                        <div className="px-3 py-1 bg-gradient-to-r from-blue-400 to-indigo-500 text-white text-sm rounded-full">
+                        <span className="text-lg md:text-2xl font-bold text-blue-600">₺{product.price}</span>
+                        <div className="px-2 py-1 md:px-3 md:py-1 bg-gradient-to-r from-blue-400 to-indigo-500 text-white text-xs md:text-sm rounded-full">
                           Menü
                         </div>
                       </div>

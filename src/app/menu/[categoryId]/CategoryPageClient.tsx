@@ -93,27 +93,27 @@ function CategoryContent({ categoryId }: { categoryId: string }) {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <LogoHeader />
       
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-3 md:px-4 py-6 md:py-8">
         <div className="mb-6 text-center">
           <button
             onClick={() => router.back()}
-            className="bg-white hover:bg-gray-50 px-4 py-2 rounded-full shadow-md text-gray-700 mb-4 transition-colors"
+            className="bg-white hover:bg-gray-50 px-3 py-2 md:px-4 md:py-2 rounded-full shadow-md text-gray-700 mb-4 transition-colors text-sm md:text-base"
           >
             ← Geri
           </button>
           
           {category && (
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">
               {getName(category)}
             </h1>
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {products.map((product) => (
             <div key={product.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               {product.image_url && (
-                <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                <div className="h-40 sm:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                   <Image
                     src={`https://qpukvgruzanjhjwgcmlp.supabase.co/storage/v1/object/public/menu-images/${product.image_url}`}
                     alt={getName(product)}
@@ -124,19 +124,19 @@ function CategoryContent({ categoryId }: { categoryId: string }) {
                 </div>
               )}
               
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              <div className="p-4 md:p-6">
+                <h3 className="text-base md:text-xl font-semibold text-gray-800 mb-2">
                   {getName(product)}
                 </h3>
                 
                 {getDescription(product) && (
-                  <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                  <p className="text-gray-600 mb-3 md:mb-4 text-xs md:text-sm leading-relaxed">
                     {getDescription(product)}
                   </p>
                 )}
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-blue-600">
+                  <span className="text-lg md:text-2xl font-bold text-blue-600">
                     ₺{product.price}
                   </span>
                 </div>
@@ -146,8 +146,8 @@ function CategoryContent({ categoryId }: { categoryId: string }) {
         </div>
 
         {products.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-gray-500 text-lg">
+          <div className="text-center py-8 md:py-12">
+            <div className="text-gray-500 text-base md:text-lg">
               Bu kategoride henüz ürün bulunmuyor.
             </div>
           </div>
