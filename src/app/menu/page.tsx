@@ -87,7 +87,7 @@ function MenuContent() {
       <nav className="sticky top-0 z-50 bg-white shadow-lg border-b-2 border-gray-100">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4">
           <LogoHeader 
-            title="XXX Restoranı" 
+            title="S.A.F. Restoranı" 
             size="small"
             showTitle={false}
           />
