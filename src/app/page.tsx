@@ -1,22 +1,15 @@
 'use client';
 
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import LogoHeader from '@/components/LogoHeader';
 
 export default function HomePage() {
-  const router = useRouter();
-
   const languages = [
     { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
     { code: 'en', name: 'English', flag: '🇺🇸' },
     { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
     { code: 'ru', name: 'Русский', flag: '🇷🇺' },
   ];
-
-  const handleSelect = (lang: string) => {
-    router.push(`/menu?lang=${lang}`);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
