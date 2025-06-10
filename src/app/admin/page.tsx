@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabaseClient';
 
 export default function AdminPage() {
   const router = useRouter();
@@ -23,7 +22,7 @@ export default function AdminPage() {
     };
     checkAccess();
     */
-  }, []);
+  }, [router]);
 
   return (
     <div className="h-screen flex items-center justify-center text-lg text-gray-600">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -30,13 +30,13 @@ interface Category {
   image_url: string;
 }
 
-export default function MenuPage() {
+function MenuContent() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  
   const searchParams = useSearchParams();
   const lang = searchParams.get('lang') || 'tr';
-
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -53,7 +53,7 @@ export default function MenuPage() {
     ? products.filter((p) => p.category_id === selectedCategory)
     : [];
 
-  const getName = (item: any) => {
+  const getName = (item: Product | Category) => {
     switch (lang) {
       case 'en':
         return item.name_en;
@@ -147,7 +147,9 @@ export default function MenuPage() {
                 
                 <div className="text-center">
                   <h2 className="text-xl md:text-2xl font-bold text-gray-800">
-                    {getName(categories.find(c => c.id === selectedCategory))}
+                    {categories.find(c => c.id === selectedCategory) ? 
+                      getName(categories.find(c => c.id === selectedCategory)!) : 
+                      'Kategori Bulunamadı'}
                   </h2>
                 </div>
                 <div className="w-32"></div>
@@ -194,5 +196,17 @@ export default function MenuPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function MenuPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-lg text-gray-600">Yükleniyor...</div>
+      </div>
+    }>
+      <MenuContent />
+    </Suspense>
   );
 }

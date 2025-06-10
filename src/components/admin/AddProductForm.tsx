@@ -3,13 +3,20 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
+interface Category {
+  id: string;
+  name: string;
+  language: string;
+}
+
 export default function AddProductForm({ onProductAdded }: { onProductAdded: () => void }) {
-  const [categories, setCategories] = useState<any[]>([]);
-  const [formData, setFormData] = useState({
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [form, setForm] = useState({
     name: '',
     description: '',
     price: '',
-    category_id: '',
+    image_url: '',
+    category_id: '', // uuid!
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -30,7 +37,7 @@ export default function AddProductForm({ onProductAdded }: { onProductAdded: () 
   };
 
   const addProduct = async () => {
-    if (!formData.name || !formData.price || !formData.category_id || !imageFile) {
+    if (!form.name || !form.price || !form.category_id || !imageFile) {
       alert('Lütfen tüm alanları doldurun ve görsel seçin.');
       return;
     }
@@ -39,8 +46,8 @@ export default function AddProductForm({ onProductAdded }: { onProductAdded: () 
     if (!imageName) return;
 
     const { error } = await supabase.from('products').insert([{
-      ...formData,
-      price: parseFloat(formData.price),
+      ...form,
+      price: parseFloat(form.price),
       image_url: imageName,
     }]);
 
@@ -49,7 +56,7 @@ export default function AddProductForm({ onProductAdded }: { onProductAdded: () 
       console.error(error);
     } else {
       alert('Ürün başarıyla eklendi.');
-      setFormData({ name: '', description: '', price: '', category_id: '' });
+      setForm({ name: '', description: '', price: '', image_url: '', category_id: '' });
       setImageFile(null);
       onProductAdded();
     }
@@ -66,22 +73,22 @@ export default function AddProductForm({ onProductAdded }: { onProductAdded: () 
         type="text"
         placeholder="Ürün Adı"
         className="w-full border p-2"
-        value={formData.name}
-        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        value={form.name}
+        onChange={(e) => setForm({ ...form, name: e.target.value })}
       />
       <input
         type="text"
         placeholder="Açıklama"
         className="w-full border p-2"
-        value={formData.description}
-        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+        value={form.description}
+        onChange={(e) => setForm({ ...form, description: e.target.value })}
       />
       <input
         type="number"
         placeholder="Fiyat"
         className="w-full border p-2"
-        value={formData.price}
-        onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+        value={form.price}
+        onChange={(e) => setForm({ ...form, price: e.target.value })}
       />
       <input
         type="file"
@@ -92,11 +99,11 @@ export default function AddProductForm({ onProductAdded }: { onProductAdded: () 
       />
       <select
         className="w-full border p-2"
-        value={formData.category_id}
-        onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
+        value={form.category_id}
+        onChange={(e) => setForm({ ...form, category_id: e.target.value })}
       >
         <option value="">Kategori Seçin</option>
-        {categories.map((cat: any) => (
+        {categories.map((cat) => (
           <option key={cat.id} value={cat.id}>
             {cat.name} ({cat.language})
           </option>

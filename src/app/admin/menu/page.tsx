@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -19,7 +19,7 @@ interface Category {
   image_url: string;
 }
 
-export default function MenuPage() {
+function MenuContent() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -126,5 +126,17 @@ export default function MenuPage() {
         </>
       )}
     </main>
+  );
+}
+
+export default function MenuPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-lg text-gray-600">Yükleniyor...</div>
+      </div>
+    }>
+      <MenuContent />
+    </Suspense>
   );
 }

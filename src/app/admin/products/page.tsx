@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, Suspense } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -28,7 +28,7 @@ interface Category {
   name_ru: string;
 }
 
-export default function ProductPage() {
+function ProductContent() {
   const searchParams = useSearchParams();
   const selectedLanguage = searchParams.get('lang') || 'tr';
 
@@ -68,13 +68,19 @@ export default function ProductPage() {
     fetchData();
   }, []);
 
+  const getTranslatedName = useCallback((item: Product | Category): string => {
+    return selectedLanguage === 'en' ? item.name_en :
+           selectedLanguage === 'de' ? item.name_de :
+           selectedLanguage === 'ru' ? item.name_ru : item.name_tr;
+  }, [selectedLanguage]);
+
   useEffect(() => {
     const filtered = products.filter((p) => {
       const name = getTranslatedName(p);
       return name?.toLowerCase().includes(searchTerm.toLowerCase());
     });
     setFilteredProducts(filtered);
-  }, [searchTerm, products, selectedLanguage]);
+  }, [searchTerm, products, selectedLanguage, getTranslatedName]);
 
   async function fetchData() {
     const { data: productData } = await supabase.from('products').select('*');
@@ -159,12 +165,6 @@ export default function ProductPage() {
     setEditingProductId(null);
     fetchData();
   }
-
-  const getTranslatedName = (item: any): string => {
-    return selectedLanguage === 'en' ? item.name_en :
-           selectedLanguage === 'de' ? item.name_de :
-           selectedLanguage === 'ru' ? item.name_ru : item.name_tr;
-  };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -307,5 +307,17 @@ export default function ProductPage() {
         `}</style>
       </div>
     </main>
+  );
+}
+
+export default function ProductPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-lg text-gray-600">Yükleniyor...</div>
+      </div>
+    }>
+      <ProductContent />
+    </Suspense>
   );
 }
