@@ -85,7 +85,7 @@ function MenuContent() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 bg-white shadow-lg border-b-2 border-gray-100">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4">
           <LogoHeader 
             title="XXX Restoranı" 
             size="small"
@@ -94,8 +94,8 @@ function MenuContent() {
         </div>
       </nav>
 
-      <main className="pt-6">
-        <div className="p-4 md:p-6 max-w-6xl mx-auto">
+      <main className="pt-4 md:pt-6">
+        <div className="px-3 md:px-6 max-w-6xl mx-auto">
           <div className="text-center mb-6 md:mb-8">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-2">Menü</h1>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto rounded-full"></div>
@@ -104,14 +104,14 @@ function MenuContent() {
           {!selectedCategory ? (
             <div className="space-y-6">
               <div className="text-center">
-                <h2 className="text-xl md:text-2xl font-semibold text-gray-700 mb-6">Kategoriler</h2>
+                <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-700 mb-4 md:mb-6">Kategoriler</h2>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6 pb-6">
                 {categories.map((cat) => (
                   <div
                     key={cat.id}
                     onClick={() => setSelectedCategory(cat.id)}
-                    className="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
+                    className="group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 active:scale-95"
                   >
                     <div className="relative overflow-hidden">
                       <Image
@@ -119,12 +119,12 @@ function MenuContent() {
                         alt={getName(cat)}
                         width={300}
                         height={200}
-                        className="w-full h-40 sm:h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="w-full h-44 sm:h-48 md:h-52 object-cover group-hover:scale-110 transition-transform duration-300"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    <div className="p-3 md:p-4 text-center">
-                      <h3 className="font-bold text-base md:text-lg text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                    <div className="p-4 md:p-5 text-center">
+                      <h3 className="font-bold text-base md:text-lg lg:text-xl text-gray-800 group-hover:text-blue-600 transition-colors duration-300 leading-snug">
                         {getName(cat)}
                       </h3>
                     </div>
@@ -133,20 +133,20 @@ function MenuContent() {
               </div>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-6 pb-6">
               <div className="flex items-center justify-between mb-4">
                 <button
-                  className="flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-white text-gray-700 rounded-xl shadow-md hover:shadow-lg transform transition-all duration-300 hover:scale-105 border border-gray-200"
+                  className="flex items-center gap-2 px-4 py-3 md:px-6 md:py-3 bg-white text-gray-700 rounded-xl shadow-md hover:shadow-lg transform transition-all duration-300 hover:scale-105 active:scale-95 border border-gray-200 min-h-[44px]"
                   onClick={() => setSelectedCategory(null)}
                 >
                   <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
-                  <span className="text-sm md:text-base">Kategoriler</span>
+                  <span className="text-sm md:text-base font-medium">Kategoriler</span>
                 </button>
                 
-                <div className="text-center flex-1 mx-4">
-                  <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
+                <div className="text-center flex-1 mx-3 md:mx-4">
+                  <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 leading-tight">
                     {categories.find(c => c.id === selectedCategory) ? 
                       getName(categories.find(c => c.id === selectedCategory)!) : 
                       'Kategori Bulunamadı'}
