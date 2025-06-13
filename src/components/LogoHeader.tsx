@@ -7,7 +7,7 @@ interface LogoHeaderProps {
 }
 
 export default function LogoHeader({ 
-  title = "XXX Restoranı", 
+  title = "S.A.F. Restoranı", 
   size = 'small', 
   showTitle = true 
 }: LogoHeaderProps) {

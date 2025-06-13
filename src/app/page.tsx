@@ -14,7 +14,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="pt-8 md:pt-12 pb-6 md:pb-8">
-        <LogoHeader title="XXX Restoranı" />
+        <LogoHeader title="S.A.F. Restoranı" />
       </div>
 
       {/* Main Content */}
@@ -62,7 +62,7 @@ export default function HomePage() {
           {/* Footer Info */}
           <div className="text-center mt-8 md:mt-12 pb-8">
             <p className="text-xs md:text-sm text-gray-500">
-              QR Menü • XXX Restoranı
+              QR Menü • S.A.F. Restoranı
             </p>
           </div>
         </div>
